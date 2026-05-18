@@ -1,43 +1,214 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PostCard from "../../components/PostCard.astro";
-import CategoryTree from "../../components/CategoryTree.astro";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
 );
 
 const postHref = (id: string) => `/blog/${id.replace(/\.md$/, "")}/`;
+
+type BlogPost = (typeof posts)[number];
+type DirectoryNode = {
+  title: string;
+  description?: string;
+  category?: BlogPost["data"]["category"];
+  subcategory?: string;
+  children?: DirectoryNode[];
+};
+
+const directory: DirectoryNode[] = [
+  {
+    title: "网络",
+    description: "协议、访问链路、DNS、代理、TLS、连接问题和抓包排查。",
+    category: "network",
+  },
+  {
+    title: "数据库",
+    description: "数据建模、SQL、索引、事务、向量数据库和数据组织。",
+    category: "database",
+  },
+  {
+    title: "系统",
+    description: "操作系统、开发环境、部署、性能、可靠性和自动化维护。",
+    category: "system",
+  },
+  {
+    title: "AI",
+    description: "AI 工程相关内容，从应用层到推理、训练和评估。",
+    children: [
+      {
+        title: "AI 应用",
+        description: "把 AI 接入真实工作流，关注可用性、边界和评估。",
+        category: "ai-application",
+        children: [
+          {
+            title: "提示词",
+            description: "任务表达、上下文组织、输出约束和提示词复盘。",
+            subcategory: "AI 应用 / 提示词",
+          },
+          {
+            title: "Harness",
+            description: "工具调用、评测脚手架、数据流和自动化运行环境。",
+            subcategory: "AI 应用 / Harness",
+          },
+        ],
+      },
+      {
+        title: "AI 推理",
+        description: "模型推理、上下文窗口、服务部署、吞吐和成本。",
+        category: "ai-inference",
+      },
+      {
+        title: "AI 训练",
+        description: "数据、训练流程、微调、评估和实验记录。",
+        category: "ai-training",
+      },
+    ],
+  },
+  {
+    title: "产品原型",
+    description: "从想法到可用产品的原型设计、验证和复盘。",
+    category: "prototype",
+    children: [
+      {
+        title: "自动化开发提效的 Agent 程序员包",
+        description: "完整完成产品设计、开发、测试、上线、维护和迭代的 agent 系统。",
+        subcategory: "产品原型 / Agent 程序员包",
+      },
+      {
+        title: "炒股理财的 Agent 平台",
+        description: "投资研究、风险提示、策略复盘和决策辅助。",
+        subcategory: "产品原型 / 炒股理财 Agent",
+      },
+      {
+        title: "个性化信息洞察系统",
+        description: "信息搜集、组织、总结和 insight 输出。",
+        subcategory: "产品原型 / 个性化信息",
+      },
+      {
+        title: "多 Agent 协作平台",
+        description: "任务拆解、角色分工、协作协议和结果评审。",
+        subcategory: "产品原型 / 多 Agent 协作",
+      },
+    ],
+  },
+  {
+    title: "思考札记",
+    description: "学习方法、建站记录、复盘和阶段性思考。",
+    category: "thinking",
+  },
+];
+
+function directPostsFor(node: DirectoryNode) {
+  return posts.filter((post) => {
+    if (node.subcategory) return post.data.subcategory === node.subcategory;
+    if (!node.category) return false;
+    if (node.children?.length) {
+      const childSubcategories = new Set(node.children.flatMap((child) => collectSubcategories(child)));
+      return post.data.category === node.category && !childSubcategories.has(post.data.subcategory || "");
+    }
+    return post.data.category === node.category;
+  });
+}
+
+function collectSubcategories(node: DirectoryNode): string[] {
+  return [
+    ...(node.subcategory ? [node.subcategory] : []),
+    ...(node.children?.flatMap((child) => collectSubcategories(child)) || []),
+  ];
+}
+
+function countPosts(node: DirectoryNode): number {
+  const directCount = directPostsFor(node).length;
+  const childCount = node.children?.reduce((sum, child) => sum + countPosts(child), 0) || 0;
+  return directCount + childCount;
+}
+
+function flattenDirectory(nodes: DirectoryNode[], depth = 0): Array<DirectoryNode & { depth: number; slug: string }> {
+  return nodes.flatMap((node) => {
+    const slug = slugify(node.title);
+    const current = { ...node, depth, slug };
+    return [current, ...(node.children ? flattenDirectory(node.children, depth + 1) : [])];
+  });
+}
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\u4e00-\u9fa5a-z0-9-]/g, "");
+}
+
+const flatNodes = flattenDirectory(directory);
 ---
 
 <BaseLayout title="个人博客 | WangAo-0" description="WangAo-0 的技术博客目录。">
   <section class="page-shell">
     <div class="page-heading wide-heading">
-      <p class="eyebrow">Blog</p>
-      <h1>个人博客</h1>
-      <p>按主题组织技术文章、产品原型记录和阶段性思考。新增文章只需要放进 `src/content/blog/`。</p>
+      <p class="eyebrow">Blog Directory</p>
+      <h1>个人博客目录</h1>
+      <p>
+        博客按类似文件夹的方式组织：先看大类，再进入子类。每篇文章依然是 Markdown，靠分类字段自动出现在对应目录中。
+      </p>
     </div>
-    <div class="post-grid">
-      {posts.map((post, index) => (
-        <PostCard
-          title={post.data.title}
-          description={post.data.description}
-          href={postHref(post.id)}
-          category={post.data.subcategory || post.data.category}
-          pubDate={post.data.pubDate}
-          featured={index === 0}
-        />
-      ))}
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="section-heading">
-      <p class="eyebrow">Categories</p>
-      <h2>分类体系</h2>
-      <p>分类先按你的知识结构预留，后续可以随着文章数量调整。</p>
+    <div class="blog-browser">
+      <aside class="directory-panel" aria-label="博客分类目录">
+        <div class="directory-title">
+          <span>目录</span>
+          <strong>{posts.length} 篇</strong>
+        </div>
+        <nav class="folder-tree">
+          {flatNodes.map((node) => (
+            <a href={`#${node.slug}`} style={`--depth: ${node.depth}`}>
+              <span class="folder-icon" aria-hidden="true">{node.children?.length ? "▸" : "•"}</span>
+              <span>{node.title}</span>
+              <em>{countPosts(node)}</em>
+            </a>
+          ))}
+        </nav>
+      </aside>
+
+      <div class="directory-content">
+        {flatNodes.map((node) => {
+          const nodePosts = directPostsFor(node);
+          const total = countPosts(node);
+          return (
+            <section id={node.slug} class="folder-section">
+              <div class="folder-heading">
+                <div>
+                  <p class="card-kicker">Folder</p>
+                  <h2>{node.title}</h2>
+                  {node.description && <p>{node.description}</p>}
+                </div>
+                <span>{total} 篇</span>
+              </div>
+              {nodePosts.length > 0 ? (
+                <div class="file-list">
+                  {nodePosts.map((post) => (
+                    <article class="file-row">
+                      <div>
+                        <div class="post-meta">
+                          <span>{post.data.subcategory || post.data.category}</span>
+                          <time datetime={post.data.pubDate.toISOString()}>
+                            {post.data.pubDate.toLocaleDateString("zh-CN")}
+                          </time>
+                        </div>
+                        <h3>{post.data.title}</h3>
+                        <p>{post.data.description}</p>
+                      </div>
+                      <a href={postHref(post.id)}>打开</a>
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <p class="empty-folder">这个目录还没有直接归档的文章，后续文章会自动出现在这里。</p>
+              )}
+            </section>
+          );
+        })}
+      </div>
     </div>
-    <CategoryTree />
   </section>
 </BaseLayout>
