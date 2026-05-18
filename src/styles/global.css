@@ -625,6 +625,16 @@ li {
   color: var(--accent);
 }
 
+.folder-leaf.is-empty {
+  opacity: 0.58;
+  cursor: default;
+}
+
+.folder-leaf.is-empty:hover {
+  background: transparent;
+  color: #3f4750;
+}
+
 .folder-node em,
 .folder-leaf em {
   color: var(--muted);
@@ -741,6 +751,83 @@ li {
   border-radius: var(--radius);
 }
 
+.real-qr {
+  width: min(100%, 280px);
+  background: #fff;
+}
+
+.refined-contact {
+  align-items: stretch;
+}
+
+.contact-primary,
+.pending-card,
+.sponsor-card,
+.link-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-primary .button,
+.link-card .text-link {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.pending-card span,
+.status-pill {
+  width: fit-content;
+  margin-top: auto;
+  padding: 0.35rem 0.55rem;
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.sponsor-card {
+  gap: 0.7rem;
+}
+
+.sponsor-card p:last-child {
+  margin-bottom: 0;
+}
+
+.prototype-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+}
+
+.prototype-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.prototype-card-head .card-kicker {
+  margin-bottom: 0;
+}
+
+.prototype-card-head .status-pill {
+  flex: 0 0 auto;
+  margin-top: 0;
+}
+
+.prototype-brief {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.prototype-brief strong {
+  margin-bottom: 0.65rem;
+  color: var(--ink);
+}
+
 .contact-section {
   display: flex;
   align-items: center;
@@ -805,6 +892,10 @@ li {
 
   .roadmap-item {
     grid-template-columns: 1fr;
+  }
+
+  .prototype-card {
+    min-height: auto;
   }
 
   .contact-section,

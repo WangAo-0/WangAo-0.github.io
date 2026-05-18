@@ -12,9 +12,11 @@ type DirectoryNode = {
 interface Props {
   nodes: DirectoryNode[];
   counts: Record<string, number>;
+  visibleSlugs?: string[];
 }
 
-const { nodes, counts } = Astro.props;
+const { nodes, counts, visibleSlugs = [] } = Astro.props;
+const visibleSet = new Set(visibleSlugs);
 ---
 
 <ul class="folder-tree-list">
@@ -28,15 +30,21 @@ const { nodes, counts } = Astro.props;
               <span class="folder-name">{node.title}</span>
               <em>{counts[node.slug] || 0}</em>
             </summary>
-            <a class="folder-jump" href={`#${node.slug}`}>查看这个目录</a>
-            <Astro.self nodes={node.children} counts={counts} />
+            {visibleSet.has(node.slug) && <a class="folder-jump" href={`#${node.slug}`}>查看这个目录</a>}
+            <Astro.self nodes={node.children} counts={counts} visibleSlugs={visibleSlugs} />
           </details>
-        ) : (
+        ) : visibleSet.has(node.slug) ? (
           <a class="folder-leaf" href={`#${node.slug}`}>
             <span aria-hidden="true">•</span>
             <span>{node.title}</span>
             <em>{counts[node.slug] || 0}</em>
           </a>
+        ) : (
+          <span class="folder-leaf is-empty">
+            <span aria-hidden="true">•</span>
+            <span>{node.title}</span>
+            <em>{counts[node.slug] || 0}</em>
+          </span>
         )}
       </li>
     ))

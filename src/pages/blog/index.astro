@@ -159,6 +159,8 @@ function slugify(value: string) {
 const directoryWithMeta = withMeta(directory);
 const flatNodes = flattenDirectory(directoryWithMeta);
 const counts = Object.fromEntries(flatNodes.map((node) => [node.slug, countPosts(node)]));
+const visibleNodes = flatNodes.filter((node) => directPostsFor(node).length > 0);
+const visibleSlugs = visibleNodes.map((node) => node.slug);
 ---
 
 <BaseLayout title="个人博客 | WangAo-0" description="WangAo-0 的技术博客目录。">
@@ -178,12 +180,12 @@ const counts = Object.fromEntries(flatNodes.map((node) => [node.slug, countPosts
           <strong>{posts.length} 篇</strong>
         </div>
         <nav class="folder-tree" aria-label="可折叠博客目录">
-          <FolderTree nodes={directoryWithMeta} counts={counts} />
+          <FolderTree nodes={directoryWithMeta} counts={counts} visibleSlugs={visibleSlugs} />
         </nav>
       </aside>
 
       <div class="directory-content">
-        {flatNodes.map((node) => {
+        {visibleNodes.map((node) => {
           const nodePosts = directPostsFor(node);
           const total = countPosts(node);
           return (
@@ -196,27 +198,23 @@ const counts = Object.fromEntries(flatNodes.map((node) => [node.slug, countPosts
                 </div>
                 <span>{total} 篇</span>
               </div>
-              {nodePosts.length > 0 ? (
-                <div class="file-list">
-                  {nodePosts.map((post) => (
-                    <article class="file-row">
-                      <div>
-                        <div class="post-meta">
-                          <span>{post.data.subcategory || post.data.category}</span>
-                          <time datetime={post.data.pubDate.toISOString()}>
-                            {post.data.pubDate.toLocaleDateString("zh-CN")}
-                          </time>
-                        </div>
-                        <h3>{post.data.title}</h3>
-                        <p>{post.data.description}</p>
+              <div class="file-list">
+                {nodePosts.map((post) => (
+                  <article class="file-row">
+                    <div>
+                      <div class="post-meta">
+                        <span>{post.data.subcategory || post.data.category}</span>
+                        <time datetime={post.data.pubDate.toISOString()}>
+                          {post.data.pubDate.toLocaleDateString("zh-CN")}
+                        </time>
                       </div>
-                      <a href={postHref(post.id)}>打开</a>
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <p class="empty-folder">这个目录还没有直接归档的文章，后续文章会自动出现在这里。</p>
-              )}
+                      <h3>{post.data.title}</h3>
+                      <p>{post.data.description}</p>
+                    </div>
+                    <a href={postHref(post.id)}>打开</a>
+                  </article>
+                ))}
+              </div>
             </section>
           );
         })}

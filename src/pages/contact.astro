@@ -3,31 +3,34 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../data/site";
 ---
 
-<BaseLayout title="联系方式 | WangAo-0" description="WangAo-0 的邮箱、微信、资助二维码和视频平台链接。">
+<BaseLayout title="联系方式 | WangAo-0" description="WangAo-0 的邮箱、微信、资助入口和自媒体视频平台链接。">
   <section class="page-shell">
     <div class="page-heading">
       <p class="eyebrow">Contact</p>
       <h1>联系方式</h1>
-      <p>这里集中放置邮箱、微信、资助二维码和自媒体视频平台链接。二维码现在是占位图，替换 `public/media/` 下的图片即可。</p>
+      <p>这里先保留公开联系入口。邮箱和微信支付打赏已可用；微信号和自媒体主页没有放真实信息前，先用待补充状态标记。</p>
     </div>
-    <div class="contact-grid">
-      <article class="media-card">
+
+    <div class="contact-grid refined-contact">
+      <article class="media-card contact-primary">
         <p class="card-kicker">Email</p>
         <h3>邮箱</h3>
         <p>{site.email}</p>
-        <a class="text-link" href={`mailto:${site.email}`}>发送邮件</a>
+        <a class="button primary" href={`mailto:${site.email}`}>发送邮件</a>
       </article>
-      <article class="media-card">
+
+      <article class="media-card pending-card">
         <p class="card-kicker">WeChat</p>
         <h3>微信</h3>
-        <img class="qr" src="/media/wechat-qr.svg" alt="微信二维码占位图" />
-        <p>请替换为真实微信二维码或微信号。</p>
+        <p>可以放微信号，或替换为真实二维码图片。</p>
+        <span>待补充</span>
       </article>
-      <article class="media-card">
+
+      <article class="media-card sponsor-card">
         <p class="card-kicker">Sponsor</p>
-        <h3>资助二维码</h3>
-        <img class="qr" src="/media/sponsor-qr.svg" alt="资助二维码占位图" />
-        <p>可以替换为赞赏码、收款码或项目资助入口。</p>
+        <h3>微信支付打赏</h3>
+        <img class="qr real-qr" src="/media/sponsor-qr.jpg" alt="微信支付打赏二维码" />
+        <p>如果文章或项目对你有帮助，可以用这个二维码支持一下。</p>
       </article>
     </div>
   </section>
@@ -36,15 +39,15 @@ import { site } from "../data/site";
     <div class="section-heading">
       <p class="eyebrow">Video</p>
       <h2>自媒体视频平台</h2>
-      <p>先保留入口，等你确定平台主页后替换链接。</p>
+      <p>这里适合放 Bilibili、YouTube、小红书或知识视频主页。真实主页确定后，只需要更新站点数据。</p>
     </div>
     <div class="grid-3">
       {site.mediaLinks.map((link) => (
-        <article class="card">
+        <article class="card link-card">
           <p class="card-kicker">Video Channel</p>
           <h3>{link.label}</h3>
           <p>{link.note}</p>
-          <a class="text-link" href={link.href}>访问平台</a>
+          {link.href === "#" ? <span class="status-pill">待补充链接</span> : <a class="text-link" href={link.href}>访问平台</a>}
         </article>
       ))}
     </div>
