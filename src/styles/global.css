@@ -77,7 +77,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 72px;
+  min-height: 68px;
 }
 
 .brand,
@@ -129,11 +129,15 @@ a {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
-  gap: clamp(2rem, 6vw, 5.5rem);
+  grid-template-columns: minmax(0, 0.9fr) minmax(380px, 1.1fr);
+  gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
-  min-height: calc(100vh - 72px);
-  padding: 5rem 0 3rem;
+  min-height: auto;
+  padding: clamp(3rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 3.5rem);
+}
+
+.compact-hero {
+  align-items: start;
 }
 
 .eyebrow {
@@ -153,17 +157,17 @@ p {
 }
 
 h1 {
-  max-width: 14ch;
+  max-width: 11ch;
   margin-bottom: 1.35rem;
-  font-size: clamp(2.8rem, 7vw, 6rem);
-  line-height: 0.98;
+  font-size: clamp(2.35rem, 5vw, 4.25rem);
+  line-height: 1.08;
   letter-spacing: 0;
 }
 
 h2 {
   margin-bottom: 1rem;
-  font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 1.06;
+  font-size: clamp(1.75rem, 3.5vw, 2.7rem);
+  line-height: 1.12;
   letter-spacing: 0;
 }
 
@@ -179,8 +183,8 @@ li {
 }
 
 .hero-text {
-  max-width: 45rem;
-  font-size: clamp(1.05rem, 2vw, 1.26rem);
+  max-width: 34rem;
+  font-size: clamp(1rem, 1.7vw, 1.16rem);
 }
 
 .actions,
@@ -225,7 +229,7 @@ li {
 
 .hero-visual {
   position: relative;
-  min-height: 520px;
+  min-height: 0;
   overflow: hidden;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(238, 245, 243, 0.86)),
@@ -233,23 +237,102 @@ li {
 }
 
 .hero-visual::before {
-  content: "";
-  position: absolute;
-  inset: 12%;
-  border: 1px solid rgba(31, 41, 51, 0.12);
-  transform: rotate(-9deg);
+  content: none;
 }
 
 .hero-visual::after {
-  content: "blog / roadmap / prototype / agent";
-  position: absolute;
-  right: 24px;
-  top: 24px;
-  max-width: 220px;
-  color: var(--accent-3);
-  font-size: 0.9rem;
-  font-weight: 850;
-  line-height: 1.5;
+  content: none;
+}
+
+.knowledge-board {
+  padding: 1.25rem;
+  box-shadow: 0 14px 40px rgba(31, 41, 51, 0.1);
+}
+
+.board-topline,
+.board-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.board-topline {
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+
+.board-topline span {
+  color: var(--accent-2);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.board-topline strong {
+  font-size: 1rem;
+}
+
+.map-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.map-card {
+  min-height: 150px;
+  padding: 1rem;
+  border: 1px solid rgba(31, 41, 51, 0.12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.map-card:hover {
+  border-color: rgba(18, 106, 114, 0.34);
+  background: rgba(238, 245, 243, 0.72);
+}
+
+.main-map-card {
+  grid-column: span 2;
+  min-height: 170px;
+  background:
+    linear-gradient(135deg, rgba(18, 106, 114, 0.12), rgba(255, 255, 255, 0.82)),
+    rgba(255, 255, 255, 0.72);
+}
+
+.map-card span {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--accent-2);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.map-card strong {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 1.15rem;
+}
+
+.map-card p {
+  margin-bottom: 0;
+  font-size: 0.94rem;
+}
+
+.board-footer {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.board-footer span {
+  padding: 0.35rem 0.55rem;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .profile-panel {
@@ -720,10 +803,6 @@ li {
     padding-top: 4rem;
   }
 
-  .hero-visual {
-    min-height: 420px;
-  }
-
   .roadmap-item {
     grid-template-columns: 1fr;
   }
@@ -746,7 +825,7 @@ li {
   }
 
   .hero-visual {
-    min-height: 360px;
+    min-height: 0;
   }
 
   .profile-panel {
@@ -762,6 +841,12 @@ li {
 
   .button {
     width: 100%;
+  }
+
+  .map-grid,
+  .main-map-card {
+    grid-template-columns: 1fr;
+    grid-column: auto;
   }
 
   .file-row,
