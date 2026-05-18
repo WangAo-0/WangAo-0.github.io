@@ -1,0 +1,44 @@
+---
+type DirectoryNode = {
+  title: string;
+  description?: string;
+  category?: string;
+  subcategory?: string;
+  slug: string;
+  depth: number;
+  children?: DirectoryNode[];
+};
+
+interface Props {
+  nodes: DirectoryNode[];
+  counts: Record<string, number>;
+}
+
+const { nodes, counts } = Astro.props;
+---
+
+<ul class="folder-tree-list">
+  {
+    nodes.map((node) => (
+      <li>
+        {node.children?.length ? (
+          <details class="folder-node" open={node.depth === 0}>
+            <summary>
+              <span class="folder-caret" aria-hidden="true"></span>
+              <span class="folder-name">{node.title}</span>
+              <em>{counts[node.slug] || 0}</em>
+            </summary>
+            <a class="folder-jump" href={`#${node.slug}`}>查看这个目录</a>
+            <Astro.self nodes={node.children} counts={counts} />
+          </details>
+        ) : (
+          <a class="folder-leaf" href={`#${node.slug}`}>
+            <span aria-hidden="true">•</span>
+            <span>{node.title}</span>
+            <em>{counts[node.slug] || 0}</em>
+          </a>
+        )}
+      </li>
+    ))
+  }
+</ul>

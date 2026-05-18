@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import FolderTree from "../../components/FolderTree.astro";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
@@ -15,6 +16,11 @@ type DirectoryNode = {
   category?: BlogPost["data"]["category"];
   subcategory?: string;
   children?: DirectoryNode[];
+};
+type DirectoryNodeWithMeta = Omit<DirectoryNode, "children"> & {
+  slug: string;
+  depth: number;
+  children?: DirectoryNodeWithMeta[];
 };
 
 const directory: DirectoryNode[] = [
@@ -125,11 +131,21 @@ function countPosts(node: DirectoryNode): number {
   return directCount + childCount;
 }
 
-function flattenDirectory(nodes: DirectoryNode[], depth = 0): Array<DirectoryNode & { depth: number; slug: string }> {
+function withMeta(nodes: DirectoryNode[], depth = 0, parent = ""): DirectoryNodeWithMeta[] {
+  return nodes.map((node) => {
+    const slug = [parent, slugify(node.title)].filter(Boolean).join("-");
+    return {
+      ...node,
+      slug,
+      depth,
+      children: node.children ? withMeta(node.children, depth + 1, slug) : undefined,
+    };
+  });
+}
+
+function flattenDirectory(nodes: DirectoryNodeWithMeta[]): DirectoryNodeWithMeta[] {
   return nodes.flatMap((node) => {
-    const slug = slugify(node.title);
-    const current = { ...node, depth, slug };
-    return [current, ...(node.children ? flattenDirectory(node.children, depth + 1) : [])];
+    return [node, ...(node.children ? flattenDirectory(node.children) : [])];
   });
 }
 
@@ -140,7 +156,9 @@ function slugify(value: string) {
     .replace(/[^\u4e00-\u9fa5a-z0-9-]/g, "");
 }
 
-const flatNodes = flattenDirectory(directory);
+const directoryWithMeta = withMeta(directory);
+const flatNodes = flattenDirectory(directoryWithMeta);
+const counts = Object.fromEntries(flatNodes.map((node) => [node.slug, countPosts(node)]));
 ---
 
 <BaseLayout title="个人博客 | WangAo-0" description="WangAo-0 的技术博客目录。">
@@ -159,14 +177,8 @@ const flatNodes = flattenDirectory(directory);
           <span>目录</span>
           <strong>{posts.length} 篇</strong>
         </div>
-        <nav class="folder-tree">
-          {flatNodes.map((node) => (
-            <a href={`#${node.slug}`} style={`--depth: ${node.depth}`}>
-              <span class="folder-icon" aria-hidden="true">{node.children?.length ? "▸" : "•"}</span>
-              <span>{node.title}</span>
-              <em>{countPosts(node)}</em>
-            </a>
-          ))}
+        <nav class="folder-tree" aria-label="可折叠博客目录">
+          <FolderTree nodes={directoryWithMeta} counts={counts} />
         </nav>
       </aside>
 
