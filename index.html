@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="WangAo-0 的个人网站，展示项目、技能、经历与 GitHub 开源作品。"
+      content="WangAo-0 的个人主页，记录自我介绍、技术博客、项目复盘与长期思考。"
     />
-    <meta name="theme-color" content="#f7f3ea" />
-    <title>WangAo-0 | Personal Website</title>
+    <meta name="theme-color" content="#f6f8fb" />
+    <title>WangAo-0 | 技术博客与思考</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -26,9 +26,9 @@
           <span></span>
         </button>
         <div class="nav-links">
-          <a href="#projects">项目</a>
-          <a href="#skills">技能</a>
-          <a href="#timeline">经历</a>
+          <a href="#about">自我介绍</a>
+          <a href="#writing">技术博客</a>
+          <a href="#thinking">思考</a>
           <a href="#contact">联系</a>
         </div>
       </nav>
@@ -37,140 +37,138 @@
     <main id="main">
       <section id="top" class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">GitHub Pages Personal Site</p>
-          <h1>你好，我是 WangAo-0。</h1>
+          <p class="eyebrow">Personal Knowledge Home</p>
+          <h1>把技术学习和思考写成可回看的路标。</h1>
           <p class="hero-text">
-            我正在用代码整理想法、打磨项目，也把学习过程沉淀成可以被看见、被验证、被复用的作品。
+            这里是 WangAo-0 的个人网站。我会用它记录自我介绍、技术博客、项目复盘，以及对工具、工程和学习方法的长期思考。
           </p>
           <div class="hero-actions" aria-label="主要操作">
-            <a class="button primary" href="https://github.com/WangAo-0" target="_blank" rel="noreferrer">
-              查看 GitHub
+            <a class="button primary" href="#writing">阅读博客</a>
+            <a class="button ghost" href="https://github.com/WangAo-0" target="_blank" rel="noreferrer">
+              GitHub
             </a>
-            <a class="button ghost" href="#projects">浏览项目</a>
           </div>
         </div>
 
-        <div class="hero-visual" aria-label="WangAo-0 的个人网站视觉封面">
+        <div class="hero-visual" aria-label="知识网络视觉">
           <canvas id="orbitCanvas" width="680" height="680"></canvas>
           <div class="profile-panel">
             <div class="avatar" aria-hidden="true">WA</div>
             <div>
-              <p class="panel-label">Profile</p>
+              <p class="panel-label">Writing in public</p>
               <h2>WangAo-0</h2>
-              <p>Developer · Builder · Learner</p>
+              <p>技术博客 / 项目复盘 / 思考札记</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="intro-section" aria-label="站点简介">
-        <div class="intro-item">
-          <span class="intro-number">01</span>
-          <h2>清晰介绍</h2>
-          <p>让访问者在几秒内知道你是谁、在做什么、可以在哪里看到你的成果。</p>
+      <section id="about" class="section about-section">
+        <div class="section-heading">
+          <p class="eyebrow">About</p>
+          <h2>自我介绍</h2>
         </div>
-        <div class="intro-item">
-          <span class="intro-number">02</span>
-          <h2>项目优先</h2>
-          <p>用真实仓库和精选作品证明能力，避免只有口号没有证据。</p>
-        </div>
-        <div class="intro-item">
-          <span class="intro-number">03</span>
-          <h2>易于维护</h2>
-          <p>纯静态文件即可上线 GitHub Pages，后续改文字、项目和链接都很轻。</p>
+        <div class="about-grid">
+          <article class="about-main">
+            <p>
+              我是 WangAo-0，目前把这个网站作为一个公开的知识入口：一部分介绍我正在关注什么，另一部分沉淀技术博客和阶段性思考。
+            </p>
+            <p>
+              我更希望这里像一本持续更新的工作手册，而不是一次性完成的展示页。每一篇文章都应该回答一个真实问题：我学到了什么、踩过什么坑、为什么这样实现、下一次如何做得更好。
+            </p>
+          </article>
+          <aside class="about-side" aria-label="关注方向">
+            <div>
+              <span>当前关注</span>
+              <strong>Web 开发、GitHub Pages、工程实践、AI 工具协作</strong>
+            </div>
+            <div>
+              <span>写作风格</span>
+              <strong>问题驱动、过程透明、结论可复用</strong>
+            </div>
+            <div>
+              <span>公开主页</span>
+              <strong>WangAo-0.github.io</strong>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section id="projects" class="section">
-        <div class="section-heading">
-          <p class="eyebrow">Work</p>
-          <h2>精选项目</h2>
+      <section id="writing" class="section">
+        <div class="section-heading wide-heading">
+          <p class="eyebrow">Blog</p>
+          <h2>技术博客</h2>
           <p>
-            这里会优先展示 GitHub 上最近更新的公开仓库。你也可以在 HTML 里把下方占位项目替换成最想展示的作品。
+            先从少量高质量文章开始：搭建过程、工具链选择、项目复盘、问题排查。后续每篇文章都可以独立成页，也可以从这里进入。
           </p>
         </div>
-        <div id="repoGrid" class="project-grid" aria-live="polite">
-          <article class="project-card">
-            <div class="project-topline">
-              <span>Featured</span>
-              <span>Website</span>
+        <div class="post-grid">
+          <article class="post-card featured-post">
+            <div class="post-meta">
+              <span>Guide</span>
+              <time datetime="2026-05-19">2026-05-19</time>
             </div>
-            <h3>个人网站</h3>
-            <p>一个面向 GitHub Pages 的响应式个人主页，用来展示个人介绍、项目、技能与联系方式。</p>
-            <a href="https://github.com/WangAo-0/WangAo-0.github.io" target="_blank" rel="noreferrer">查看仓库</a>
+            <h3>如何搭建我的 GitHub Pages 个人网站</h3>
+            <p>
+              从确定仓库名、设计首页结构、配置 SSH 推送，到最终让网站通过公网 URL 访问。
+            </p>
+            <a href="blog/github-pages-site.html">阅读全文</a>
           </article>
-          <article class="project-card">
-            <div class="project-topline">
-              <span>Learning</span>
-              <span>Notes</span>
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Essay</span>
+              <time datetime="2026-05-19">2026-05-19</time>
             </div>
-            <h3>学习笔记</h3>
-            <p>把阶段性的学习总结、实验记录和解决方案整理为可检索的公开资料。</p>
-            <a href="https://github.com/WangAo-0" target="_blank" rel="noreferrer">访问 GitHub</a>
+            <h3>为什么要公开写技术笔记</h3>
+            <p>
+              技术写作不是展示完美答案，而是把思考过程保存下来，让未来的自己和他人都能复用。
+            </p>
+            <a href="blog/thinking-in-public.html">阅读全文</a>
           </article>
-          <article class="project-card">
-            <div class="project-topline">
-              <span>Open Source</span>
-              <span>Lab</span>
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Index</span>
+              <span>持续更新</span>
             </div>
-            <h3>项目实验室</h3>
-            <p>用于沉淀小工具、课程项目、Web 实验或自动化脚本，展示持续构建能力。</p>
-            <a href="https://github.com/WangAo-0?tab=repositories" target="_blank" rel="noreferrer">更多仓库</a>
+            <h3>博客目录</h3>
+            <p>
+              所有文章会逐步收敛到博客目录，方便按主题浏览技术笔记、项目复盘和方法论。
+            </p>
+            <a href="blog/">查看目录</a>
           </article>
         </div>
       </section>
 
-      <section id="skills" class="section split-section">
+      <section id="thinking" class="section split-section">
         <div class="section-heading sticky-heading">
-          <p class="eyebrow">Stack</p>
-          <h2>技能方向</h2>
-          <p>先放通用且容易维护的技能分组，后续可以按你的真实方向替换成更精准的技术栈。</p>
+          <p class="eyebrow">Thinking</p>
+          <h2>思考札记</h2>
+          <p>这些不是正式文章标题，而是未来会持续展开的问题。</p>
         </div>
-        <div class="skill-list">
+        <div class="thought-list">
           <article>
-            <h3>Web 前端</h3>
-            <p>HTML、CSS、JavaScript、响应式布局、交互体验与页面性能优化。</p>
+            <span>01</span>
+            <h3>如何把一个临时项目整理成可维护的作品？</h3>
+            <p>从目录结构、README、部署方式和复盘文档开始，让项目不仅能运行，也能被理解。</p>
           </article>
           <article>
-            <h3>工程实践</h3>
-            <p>Git、GitHub、文档整理、自动化脚本、项目结构设计与持续迭代。</p>
+            <span>02</span>
+            <h3>AI 工具如何参与真实开发流程？</h3>
+            <p>记录从需求澄清、代码生成、验证测试到提交推送的协作边界和使用经验。</p>
           </article>
           <article>
-            <h3>问题解决</h3>
-            <p>把需求拆解为可执行步骤，用原型、验证和复盘推动项目落地。</p>
+            <span>03</span>
+            <h3>怎样建立自己的技术学习闭环？</h3>
+            <p>把输入、实践、输出和反馈连接起来，让学习不只停留在收藏夹和零散笔记里。</p>
           </article>
         </div>
-      </section>
-
-      <section id="timeline" class="section">
-        <div class="section-heading">
-          <p class="eyebrow">Now</p>
-          <h2>当前计划</h2>
-        </div>
-        <ol class="timeline">
-          <li>
-            <span>Step 1</span>
-            <h3>上线个人网站</h3>
-            <p>把这个仓库发布为 `WangAo-0.github.io`，形成可公开访问的个人入口。</p>
-          </li>
-          <li>
-            <span>Step 2</span>
-            <h3>补充真实项目</h3>
-            <p>挑选 3 到 6 个最能代表能力的仓库，补上截图、技术栈、亮点和链接。</p>
-          </li>
-          <li>
-            <span>Step 3</span>
-            <h3>持续更新内容</h3>
-            <p>定期把学习记录、项目总结和阶段成果沉淀到网站与 GitHub 里。</p>
-          </li>
-        </ol>
       </section>
 
       <section id="contact" class="contact-section">
         <div>
           <p class="eyebrow">Contact</p>
-          <h2>欢迎通过 GitHub 了解我。</h2>
-          <p>先从公开仓库开始，让代码、提交记录和项目说明替你说话。</p>
+          <h2>欢迎从文章或代码开始了解我。</h2>
+          <p>你可以查看我的 GitHub，也可以通过邮箱交流技术问题、项目想法或学习记录。</p>
         </div>
         <div class="contact-actions">
           <a class="button primary" href="https://github.com/WangAo-0" target="_blank" rel="noreferrer">
@@ -182,7 +180,7 @@
     </main>
 
     <footer class="footer">
-      <p>© <span id="year"></span> WangAo-0. Built for GitHub Pages.</p>
+      <p>© <span id="year"></span> WangAo-0. Notes, code, and thoughts.</p>
       <a href="#top">回到顶部</a>
     </footer>
 
