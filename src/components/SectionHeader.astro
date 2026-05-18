@@ -1,0 +1,16 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  wide?: boolean;
+}
+
+const { eyebrow, title, description, wide = false } = Astro.props;
+---
+
+<div class:list={["section-heading", wide && "wide-heading"]}>
+  <p class="eyebrow">{eyebrow}</p>
+  <h2>{title}</h2>
+  {description && <p>{description}</p>}
+</div>

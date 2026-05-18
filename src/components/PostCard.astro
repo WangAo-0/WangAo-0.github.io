@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  category: string;
+  pubDate?: Date;
+  featured?: boolean;
+}
+
+const { title, description, href, category, pubDate, featured = false } = Astro.props;
+---
+
+<article class:list={["post-card", featured && "featured"]}>
+  <div class="post-meta">
+    <span>{category}</span>
+    {pubDate && <time datetime={pubDate.toISOString()}>{pubDate.toLocaleDateString("zh-CN")}</time>}
+  </div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <a href={href}>阅读全文</a>
+</article>

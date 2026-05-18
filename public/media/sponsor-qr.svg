@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360" role="img" aria-labelledby="title desc">
+  <title id="title">资助二维码占位图</title>
+  <desc id="desc">请替换为真实资助二维码。</desc>
+  <rect width="360" height="360" fill="#ffffff"/>
+  <rect x="28" y="28" width="304" height="304" fill="#fff7f0" stroke="#b64d2a" stroke-width="4"/>
+  <rect x="62" y="62" width="74" height="74" fill="#b64d2a"/>
+  <rect x="224" y="62" width="74" height="74" fill="#b64d2a"/>
+  <rect x="62" y="224" width="74" height="74" fill="#b64d2a"/>
+  <circle cx="180" cy="180" r="32" fill="#1f2933"/>
+  <rect x="220" y="172" width="34" height="34" fill="#126a72"/>
+  <rect x="154" y="232" width="40" height="40" fill="#3158a6"/>
+  <text x="180" y="334" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1f2933">Sponsor QR Placeholder</text>
+</svg>

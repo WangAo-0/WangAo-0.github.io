@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { prototypes } from "../data/site";
+---
+
+<BaseLayout title="产品原型 | WangAo-0" description="WangAo-0 的产品原型和 agent 平台构想。">
+  <section class="page-shell">
+    <div class="page-heading wide-heading">
+      <p class="eyebrow">Product Prototypes</p>
+      <h1>产品原型</h1>
+      <p>这里不是简单列想法，而是把长期值得做的方向拆成可验证、可复盘、可逐步实现的产品假设。</p>
+    </div>
+    <div class="prototype-grid">
+      {prototypes.map((prototype) => (
+        <article class="card">
+          <p class="card-kicker">{prototype.category}</p>
+          <h3>{prototype.title}</h3>
+          <p>{prototype.description}</p>
+          <ul class="scope-list">
+            {prototype.scope.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

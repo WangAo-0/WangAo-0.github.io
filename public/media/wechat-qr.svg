@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360" role="img" aria-labelledby="title desc">
+  <title id="title">微信二维码占位图</title>
+  <desc id="desc">请替换为真实微信二维码。</desc>
+  <rect width="360" height="360" fill="#ffffff"/>
+  <rect x="28" y="28" width="304" height="304" fill="#eef5f3" stroke="#126a72" stroke-width="4"/>
+  <rect x="62" y="62" width="74" height="74" fill="#126a72"/>
+  <rect x="224" y="62" width="74" height="74" fill="#126a72"/>
+  <rect x="62" y="224" width="74" height="74" fill="#126a72"/>
+  <rect x="160" y="152" width="42" height="42" fill="#1f2933"/>
+  <rect x="214" y="170" width="28" height="28" fill="#b64d2a"/>
+  <rect x="150" y="224" width="36" height="36" fill="#3158a6"/>
+  <text x="180" y="334" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1f2933">WeChat QR Placeholder</text>
+</svg>

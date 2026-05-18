@@ -1,0 +1,20 @@
+---
+import { blogCategories } from "../data/site";
+---
+
+<div class="category-tree">
+  {blogCategories.map((category) => (
+    <article class="card category-card">
+      <p class="card-kicker">{category.id}</p>
+      <h3>{category.title}</h3>
+      <p>{category.description}</p>
+      {"children" in category && category.children && (
+        <ul>
+          {category.children.map((child) => (
+            <li><strong>{child.title}</strong>：{child.description}</li>
+          ))}
+        </ul>
+      )}
+    </article>
+  ))}
+</div>

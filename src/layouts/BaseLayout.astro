@@ -1,0 +1,50 @@
+---
+import "../styles/global.css";
+import { site } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = site.title, description = site.description } = Astro.props;
+const navItems = [
+  { label: "个人简介", href: "/#about" },
+  { label: "技术 Roadmap", href: "/roadmap/" },
+  { label: "个人博客", href: "/blog/" },
+  { label: "产品原型", href: "/prototypes/" },
+  { label: "联系方式", href: "/contact/" },
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f6f8fb" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="site-header">
+      <nav class="nav" aria-label="主导航">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">WA</span>
+          <span>{site.name}</span>
+        </a>
+        <div class="nav-links">
+          {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+        </div>
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="footer">
+      <p>© {new Date().getFullYear()} {site.name}. Notes, prototypes, and thoughts.</p>
+      <a href={site.githubUrl}>GitHub</a>
+    </footer>
+  </body>
+</html>

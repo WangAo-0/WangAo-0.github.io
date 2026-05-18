@@ -1,0 +1,17 @@
+{
+  "name": "wangao-0.github.io",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "export": "astro check && astro build && node scripts/sync-dist-to-root.mjs",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "astro": "^5.16.4",
+    "typescript": "^5.9.3"
+  }
+}

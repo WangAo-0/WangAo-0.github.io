@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="网络类文章可以围绕请求路径、DNS、TLS、代理、超时和抓包记录展开。"><meta name="theme-color" content="#f6f8fb"><title>网络问题排查笔记的写法 | WangAo-0</title><link rel="stylesheet" href="/_astro/_slug_.ZFAsiW-W.css"></head> <body> <a class="skip-link" href="#main">跳到正文</a> <header class="site-header"> <nav class="nav" aria-label="主导航"> <a class="brand" href="/"> <span class="brand-mark" aria-hidden="true">WA</span> <span>WangAo-0</span> </a> <div class="nav-links"> <a href="/#about">个人简介</a><a href="/roadmap/">技术 Roadmap</a><a href="/blog/">个人博客</a><a href="/prototypes/">产品原型</a><a href="/contact/">联系方式</a> </div> </nav> </header> <main id="main">  <article class="page-shell"> <header class="page-heading"> <div class="meta-row"> <span>网络</span> <time datetime="2026-05-18T00:00:00.000Z">2026/5/18</time> </div> <h1>网络问题排查笔记的写法</h1> <p>网络类文章可以围绕请求路径、DNS、TLS、代理、超时和抓包记录展开。</p> <div class="tag-list"> <span class="tag">网络</span><span class="tag">调试</span><span class="tag">排查</span> </div> </header> <div class="article-body">  <h2 id="记录什么">记录什么</h2>
+<p>网络问题最容易只留下“最后改好了”的结论。更有价值的笔记应该记录完整路径：从浏览器、DNS、代理、TLS、服务端日志到最终定位。</p>
+<h2 id="建议模板">建议模板</h2>
+<ol>
+<li>现象：请求失败、超时、连接重置或状态码异常。</li>
+<li>环境：系统、网络、代理、目标地址。</li>
+<li>排查：逐步验证 DNS、端口、证书和服务端响应。</li>
+<li>结论：问题原因和避免方式。</li>
+</ol>
+<h2 id="后续补充">后续补充</h2>
+<p>后续可以把每次真实遇到的网络问题按这个模板补充进来。</p>  </div> </article>  </main> <footer class="footer"> <p>© 2026 WangAo-0. Notes, prototypes, and thoughts.</p> <a href="https://github.com/WangAo-0">GitHub</a> </footer> </body></html>

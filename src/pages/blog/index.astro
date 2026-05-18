@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import CategoryTree from "../../components/CategoryTree.astro";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const postHref = (id: string) => `/blog/${id.replace(/\.md$/, "")}/`;
+---
+
+<BaseLayout title="个人博客 | WangAo-0" description="WangAo-0 的技术博客目录。">
+  <section class="page-shell">
+    <div class="page-heading wide-heading">
+      <p class="eyebrow">Blog</p>
+      <h1>个人博客</h1>
+      <p>按主题组织技术文章、产品原型记录和阶段性思考。新增文章只需要放进 `src/content/blog/`。</p>
+    </div>
+    <div class="post-grid">
+      {posts.map((post, index) => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          href={postHref(post.id)}
+          category={post.data.subcategory || post.data.category}
+          pubDate={post.data.pubDate}
+          featured={index === 0}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <p class="eyebrow">Categories</p>
+      <h2>分类体系</h2>
+      <p>分类先按你的知识结构预留，后续可以随着文章数量调整。</p>
+    </div>
+    <CategoryTree />
+  </section>
+</BaseLayout>
